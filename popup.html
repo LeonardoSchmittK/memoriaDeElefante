@@ -1,0 +1,123 @@
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Memória de Elefante</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Varela+Round&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        width: 300px;
+        padding: 1.5em 0.5em;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        position: relative;
+        border: 2px solid #80808013;
+        border-radius: 10px;
+        gap: 1.2em;
+      }
+
+      img.logo {
+        width: 30px;
+        height: 30px;
+      }
+
+      .title {
+        font-family: "Varela Round", sans-serif;
+        position: relative;
+      }
+
+      .title::after {
+        content: "";
+        width: 50%;
+        height: 2px;
+        background-color: rgba(223, 223, 223, 0.541);
+        position: absolute;
+        bottom: -7px;
+        left: 25%;
+      }
+
+      .clipboard-container {
+        width: 200px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        position: relative;
+      }
+
+      button {
+        border: 0;
+        outline: 0;
+      }
+
+      #buttonCreateMemory,
+      #buttonSaveMemory {
+        width: 80%;
+        padding: 0.5em;
+        text-align: center;
+        background-color: #22cb58;
+        border-radius: 3px;
+        text-transform: uppercase;
+        font-weight: 800;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        cursor: pointer;
+        box-shadow: 0 4px 6px #0000001a, 0 1px 3px #00000014;
+        transition: box-shadow 0.3s ease-in-out;
+        color: #12381e;
+      }
+      #buttonCreateMemory:hover {
+        box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15),
+          0 3px 6px rgba(145, 145, 145, 0.1);
+        transition: box-shadow 0.3s ease-in-out;
+      }
+
+      .confirmationP-container {
+        width: 80%;
+      }
+      .confirmationP-container img {
+        width: 15px;
+        height: 15px;
+      }
+
+      .confirmationP-container p {
+        display: flex;
+        gap: 5px;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .invisible {
+        display: none;
+      }
+      .visible {
+        display: block;
+      }
+    </style>
+  </head>
+  <body>
+    <img class="logo" src="./images/logoMaior.png" alt="localStorage" />
+    <h2 class="title">Selecione um texto...</h2>
+    <div class="clipboard-container">
+      <p id="clipboard"></p>
+    </div>
+    <div class="confirmationP-container">
+      <p id="confirmationP"></p>
+    </div>
+    <div id="response"></div>
+    <button id="buttonCreateMemory">Criar memória</button>
+    <button id="buttonSaveMemory" class="invisible">Salvar memória</button>
+
+    <script src="/js/index.js" nonce="randomNonceValue"></script>
+  </body>
+</html>
