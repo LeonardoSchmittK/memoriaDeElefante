@@ -9,12 +9,19 @@ let arrayMemories = alreadySavedMemories
   ? JSON.parse(alreadySavedMemories)
   : [];
 
-if (arrayMemories.length >= 0) {
+if (JSON.parse(localStorage.getItem("memorias")).length > 0) {
+  document.querySelector(".subtitle").innerHTML =
+    JSON.parse(localStorage.getItem("memorias")).length + " Memórias";
+  document.querySelector("#buttonAnswersMemory").classList.remove("invisible");
 }
 
 document.addEventListener("DOMContentLoaded", function () {
   const buttonCreateMemoryEl = document.getElementById("buttonCreateMemory");
   const buttonSaveMemoryEl = document.getElementById("buttonSaveMemory");
+  const buttonAnswersMemoryEl = document.getElementById("buttonAnswersMemory");
+  const buttonGetFeedbackMemoryEl = document.getElementById(
+    "buttonGetFeedbackMemory"
+  );
   let isOkClipboard = false;
   let memory;
   if (buttonCreateMemoryEl) {
@@ -63,8 +70,27 @@ document.addEventListener("DOMContentLoaded", function () {
 
       localStorage.setItem("memorias", JSON.stringify(memoryArray));
 
-      const prompt = memory;
+      document.querySelector(".title").innerHTML = "Memória salva!";
+      document
+        .querySelectorAll("button")
+        .forEach((btn) => btn.classList.add("invisible"));
+      document
+        .querySelectorAll("p")
+        .forEach((p) => p.classList.add("invisible"));
+    });
+  }
 
+  if (buttonAnswersMemoryEl) {
+    buttonAnswersMemoryEl.addEventListener("click", async function () {
+      const prompt = JSON.parse(localStorage.getItem("memorias"))[0].text;
+      buttonSaveMemoryEl.classList.add("invisible");
+      buttonCreateMemoryEl.classList.add("invisible");
+      document
+        .querySelector(".confirmationP-container")
+        .classList.add("invisible");
+      buttonGetFeedbackMemoryEl.classList.remove("invisible");
+      buttonSaveMemoryEl.classList.add("invisible");
+      buttonAnswersMemoryEl.classList.add("invisible");
       fetch("https://api-ai-seven.vercel.app/gerarQuestoes", {
         method: "POST",
         headers: {
@@ -82,14 +108,31 @@ document.addEventListener("DOMContentLoaded", function () {
           console.error("Error:", error);
           document.getElementById("response").textContent = `Error: ${error}`;
         });
+    });
+  }
 
-      document.querySelector(".title").innerHTML = "Memória salva!";
-      document
-        .querySelectorAll("button")
-        .forEach((btn) => btn.classList.add("invisible"));
-      document
-        .querySelectorAll("p")
-        .forEach((p) => p.classList.add("invisible"));
+  if (buttonGetFeedbackMemoryEl) {
+    buttonGetFeedbackMemoryEl.addEventListener("click", async function () {
+      // const elements = document.querySelectorAll(".response *");
+
+      // const correctResponses = Array.from(elements).filter((element) => {
+      //   return element.textContent.includes("Resposta correta");
+      // });
+
+      const correctResponses = document
+        .querySelectorAll("*")
+        .filter((item) => item.textContent.includes("Resposta correta"));
+
+      const activeRadios = document.querySelectorAll(
+        'input[type="radio"]:checked'
+      );
+      console.log(activeRadios);
+
+      activeRadios.forEach(async (item, id) => {
+        const t = await correctResponses[id].textContent;
+        console.log(item.value);
+        console.log(correctResponses[id].textContent);
+      });
     });
   }
 });

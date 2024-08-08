@@ -62,7 +62,9 @@
       }
 
       #buttonCreateMemory,
-      #buttonSaveMemory {
+      #buttonSaveMemory,
+      #buttonAnswersMemory,
+      #buttonGetFeedbackMemory {
         width: 80%;
         padding: 0.5em;
         text-align: center;
@@ -76,6 +78,16 @@
         transition: box-shadow 0.3s ease-in-out;
         color: #12381e;
       }
+
+      button.secundary {
+        background-color: #ececec34 !important;
+        border: 2px solid #22cb58;
+      }
+
+      button.secundary:hover {
+        background-color: #c6f7c360 !important;
+      }
+
       #buttonCreateMemory:hover {
         box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15),
           0 3px 6px rgba(145, 145, 145, 0.1);
@@ -103,11 +115,29 @@
       .visible {
         display: block;
       }
+
+      #response {
+        width: 100%;
+        padding-left: 20px;
+      }
+
+      ol {
+        list-style-position: outside;
+        padding-left: 20px;
+        margin: 0 0 1em 0;
+      }
+
+      li {
+        display: list-item;
+        margin-bottom: 0.5em;
+        margin-top: 0.5em;
+      }
     </style>
   </head>
   <body>
     <img class="logo" src="./images/logoMaior.png" alt="localStorage" />
     <h2 class="title">Selecione um texto...</h2>
+    <span class="subtitle"></span>
     <div class="clipboard-container">
       <p id="clipboard"></p>
     </div>
@@ -117,6 +147,12 @@
     <div id="response"></div>
     <button id="buttonCreateMemory">Criar memória</button>
     <button id="buttonSaveMemory" class="invisible">Salvar memória</button>
+    <button id="buttonAnswersMemory" class="invisible secundary">
+      Testar Memória
+    </button>
+    <button id="buttonGetFeedbackMemory" class="invisible secundary">
+      Ter feedback
+    </button>
 
     <script src="/js/index.js" nonce="randomNonceValue"></script>
   </body>
